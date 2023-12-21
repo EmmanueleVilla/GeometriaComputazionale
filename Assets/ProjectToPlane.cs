@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets
@@ -15,31 +16,34 @@ namespace Assets
         // Mesh prefab to draw the triangle
         public MeshFilter MeshPrefab;
 
+        public Transform ShadowParent;
+
         // Plane used as projection screen
         private Plane _plane;
 
-        // Instantiated triangle (TODO: use a list)
-        private MeshFilter _meshFilter;
+        // Instantiated triangles (TODO: use a list)
+        //private MeshFilter _meshFilter;
 
         // Instantiated line renderers
         private List<LineRenderer> _lineRenderers;
 
         // The solid mesh and triangles
         private Mesh _mesh;
-        private int[] _triangles;
+        private int[] _triangleVertices;
 
         private void Start()
         {
             // TODO: check if the plane equation is correct and matches the plane in the scene!
-            _plane = new Plane(Vector3.left, 10);
+            _plane = new Plane(Vector3.left, 0);
             _lineRenderers = new List<LineRenderer>();
 
 
             // Creating 3 line renderers for each triangle
-            _mesh = GetComponent<MeshFilter>().mesh;
-            _triangles = _mesh.GetTriangles(0);
+            _mesh = GetComponent<MeshFilter>().sharedMesh;
 
-            for (var index = 0; index < _triangles.Length * 3; index++)
+            _triangleVertices = _mesh.GetTriangles(0);
+
+            for (var index = 0; index < _triangleVertices.Length * 3; index++)
             {
                 var lineRenderer = Instantiate(LineRendererPrefab);
                 lineRenderer.startWidth = 0.01f;
@@ -50,11 +54,11 @@ namespace Assets
             }
 
             // Print the first triangle vertices to check them
-            for (var index = 0; index < _triangles.Length; index += 3)
+            for (var index = 0; index < _triangleVertices.Length; index += 3)
             {
-                var first = _triangles[index];
-                var second = _triangles[index + 1];
-                var third = _triangles[index + 2];
+                var first = _triangleVertices[index];
+                var second = _triangleVertices[index + 1];
+                var third = _triangleVertices[index + 2];
                 Debug.Log(first + "," + second + "," + third);
             }
         }
@@ -96,74 +100,77 @@ namespace Assets
                 }
             }
 
-
-            var hits = new Vector3[3];
-
-            // Test the first triangle
-            for (var i = 0; i < 3; i++)
+            // Destroy the current triangles before instantiating a new one
+            // TODO: avoid destroy and recreation if the points didn't move
+            for (int i = 0; i < ShadowParent.childCount; i++)
             {
-                var vertex = _triangles[i];
-
-                // Vertex position in mesh -> vertex position in world
-                var start = transform.TransformPoint(_mesh.vertices[vertex]);
-                var end = PointE.transform.position;
-
-                // Draw the projection line
-                _lineRenderers[i].SetPosition(0, start);
-                _lineRenderers[i].SetPosition(1, end);
-
-                // Ray-cast to the plane
-                var ray = new Ray(start, end);
-                if (_plane.Raycast(ray, out var rayDistance))
-                {
-                    hits[i] = ray.GetPoint(rayDistance);
-                }
+                Destroy(ShadowParent.GetChild(i).gameObject);
             }
-            // Draw the triangle
 
-            try // Just in case
+            // Test for every triangle
+            for (int t = 0; t < _triangleVertices.Length; t += 3)
             {
-                // Destroy the current triangle before instantiating a new one
-                // TODO: avoid destroy and recreation if the points didn't move
-                if (_meshFilter != null)
+                var hits = new Vector3[3];
+
+                for (var i = 0; i < 3; i++)
                 {
-                    Destroy(_meshFilter.gameObject);
+                    var vertex = _triangleVertices[t + i];
+
+                    var start = PointE.transform.position;
+                    // Vertex position in mesh -> vertex position in world
+                    var end = transform.TransformPoint(_mesh.vertices[vertex]);
+
+                    // Ray-cast to the plane
+                    var ray = new Ray(start, end - start);
+                    if (_plane.Raycast(ray, out float rayDistance))
+                    {
+                        hits[i] = ray.GetPoint(rayDistance);
+
+                        // Draw the projection line
+                        _lineRenderers[i].SetPosition(0, start);
+                        _lineRenderers[i].SetPosition(1, hits[i]);
+                    }
                 }
+                // Draw the triangle
 
-                _meshFilter = Instantiate(MeshPrefab);
-
-                var vertices = new[]
+                try // Just in case
                 {
-                    hits[2],
-                    hits[1],
-                    hits[0]
-                };
+                    var meshFilter = Instantiate(MeshPrefab, ShadowParent);
+                    meshFilter.transform.position = Vector3.zero;
 
-                var meshTriangles = new[]
-                {
-                    2, 1, 0
-                };
-
-                var triangleMesh = new Mesh
-                {
-                    vertices = vertices,
-                    triangles = meshTriangles,
-                    uv = new Vector2[]
+                    var vertices = new[]
                     {
                         hits[2],
                         hits[1],
                         hits[0]
-                    }
-                };
+                    };
 
-                triangleMesh.RecalculateNormals();
+                    var meshTriangles = new[]
+                    {
+                        2, 1, 0
+                    };
 
-                _meshFilter.mesh = triangleMesh;
-            }
-            catch (Exception e)
-            {
-                Debug.Log(e);
-                // ignored
+                    var triangleMesh = new Mesh
+                    {
+                        vertices = vertices,
+                        triangles = meshTriangles,
+                        uv = new Vector2[]
+                        {
+                        hits[2],
+                        hits[1],
+                        hits[0]
+                        }
+                    };
+
+                    triangleMesh.RecalculateNormals();
+
+                    meshFilter.mesh = triangleMesh;
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    // ignored
+                }
             }
         }
     }
