@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets
@@ -28,6 +29,7 @@ namespace Assets
         private List<MeshFilter> _shadowMeshes = new();
 
         private Vector3[] verticesCache = new Vector3[3];
+        private Vector3[] _meshVertices = new Vector3[3];
         private Vector2[] uvCache = new Vector2[3];
 
         private int[] meshTriangles = new[]
@@ -39,7 +41,8 @@ namespace Assets
         {
             _plane = new Plane(Vector3.left, 0);
             _mesh = GetComponent<MeshFilter>().sharedMesh;
-            _triangleVertices = _mesh.GetTriangles(0);
+            _triangleVertices = _mesh.GetTriangles(0).ToArray();
+            _meshVertices = _mesh.vertices;
 
             // Creates the projected meshes
             for (var t = 0; t < _triangleVertices.Length; t += 3)
@@ -48,12 +51,13 @@ namespace Assets
             }
         }
 
+        Dictionary<int, Vector3> cache = new();
+
         private void Update()
         {
             var start = PointE.transform.position;
             var hits = new Vector3[3];
-
-            var cache = new Dictionary<int, Vector3>();
+            cache.Clear();
 
             for (var t = 0; t < _triangleVertices.Length; t += 3)
             {
@@ -66,7 +70,7 @@ namespace Assets
                     }
                     else
                     {
-                        var end = transform.TransformPoint(_mesh.vertices[vertex]);
+                        var end = transform.TransformPoint(_meshVertices[vertex]);
 
                         var ray = new Ray(start, end - start);
                         if (!_plane.Raycast(ray, out var rayDistance)) continue;
