@@ -40,7 +40,7 @@ namespace Assets
         private void Start()
         {
             _plane = new Plane(Vector3.left, 0);
-            _mesh = GetComponent<MeshFilter>().sharedMesh;
+            _mesh = GetComponent<SkinnedMeshRenderer>().sharedMesh;
             _triangleVertices = _mesh.GetTriangles(0).ToArray();
             _meshVertices = _mesh.vertices;
 

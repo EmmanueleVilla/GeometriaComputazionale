@@ -1,0 +1,154 @@
+fileFormatVersion: 2
+guid: 1a8d5c5542a53244399a9eba7ccb94bb
+timeCreated: 1516792861
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cylinder
+    100004: //RootNode
+    100006: hand_dummy
+    100008: index_finger_0
+    100010: index_finger_1
+    100012: index_finger_2
+    100014: index_finger_2_end
+    100016: middle_finger_0
+    100018: middle_finger_1
+    100020: middle_finger_2
+    100022: middle_finger_2_end
+    100024: palm
+    100026: pinky_0
+    100028: pinky_1
+    100030: pinky_2
+    100032: pinky_2_end
+    100034: ring_finger_0
+    100036: ring_finger_1
+    100038: ring_finger_2
+    100040: ring_finger_2_end
+    100042: Sphere
+    100044: thumb_0
+    100046: thumb_1
+    100048: thumb_1_end
+    100050: wrist
+    400000: Armature
+    400002: Cylinder
+    400004: //RootNode
+    400006: hand_dummy
+    400008: index_finger_0
+    400010: index_finger_1
+    400012: index_finger_2
+    400014: index_finger_2_end
+    400016: middle_finger_0
+    400018: middle_finger_1
+    400020: middle_finger_2
+    400022: middle_finger_2_end
+    400024: palm
+    400026: pinky_0
+    400028: pinky_1
+    400030: pinky_2
+    400032: pinky_2_end
+    400034: ring_finger_0
+    400036: ring_finger_1
+    400038: ring_finger_2
+    400040: ring_finger_2_end
+    400042: Sphere
+    400044: thumb_0
+    400046: thumb_1
+    400048: thumb_1_end
+    400050: wrist
+    2300000: Cylinder
+    2300002: Sphere
+    3300000: Cylinder
+    3300002: Sphere
+    4300000: Sphere
+    4300002: Cylinder
+    4300004: hand_dummy
+    7400000: Armature|cool
+    7400002: Armature|fist
+    7400004: Armature|goat
+    7400006: Armature|idle
+    7400008: Armature|index
+    7400010: Armature|keep_cylinder
+    7400012: Armature|keep_sphere
+    7400014: Armature|middle_finger
+    7400016: Armature|no
+    7400018: Armature|ok
+    7400020: Armature|palm
+    7400022: Armature|pinch
+    7400024: Armature|push
+    7400026: Armature|thumb_up
+    7400028: Armature|two
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: hand_dummy
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
