@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +27,11 @@ namespace Assets
         private int[] _triangleVertices;
         private List<MeshFilter> _shadowMeshes = new();
 
+        private int[] meshTriangles = new[]
+        {
+            2, 1, 0
+        };
+
         private void Start()
         {
             _plane = new Plane(Vector3.left, 0);
@@ -43,100 +47,50 @@ namespace Assets
 
         private void Update()
         {
-            // Handle solid movement with WASD, space bar and left ctrl
-            if (Input.GetButton("Horizontal"))
-            {
-                if (Input.GetAxisRaw("Horizontal") > 0)
-                {
-                    transform.position += Vector3.back * Time.deltaTime;
-                }
-                else
-                {
-                    transform.position += Vector3.forward * Time.deltaTime;
-                }
-            }
+            var start = PointE.transform.position;
+            var hits = new Vector3[3];
 
-            if (Input.GetButton("Jump"))
-            {
-                transform.position += Vector3.up * Time.deltaTime;
-            }
+            var cache = new Dictionary<int, Vector3>();
 
-            if (Input.GetButton("Crouch"))
+            for (var t = 0; t < _triangleVertices.Length; t += 3)
             {
-                transform.position += Vector3.down * Time.deltaTime;
-            }
-
-            if (Input.GetButton("Vertical"))
-            {
-                if (Input.GetAxisRaw("Vertical") > 0)
-                {
-                    transform.position += Vector3.right * Time.deltaTime;
-                }
-                else
-                {
-                    transform.position += Vector3.left * Time.deltaTime;
-                }
-            }
-
-            // Test for every triangle
-            for (int t = 0; t < _triangleVertices.Length; t += 3)
-            {
-                var hits = new Vector3[3];
-
                 for (var i = 0; i < 3; i++)
                 {
                     var vertex = _triangleVertices[t + i];
-
-                    var start = PointE.transform.position;
-                    // Vertex position in mesh -> vertex position in world
-                    var end = transform.TransformPoint(_mesh.vertices[vertex]);
-
-                    // Ray-cast to the plane
-                    var ray = new Ray(start, end - start);
-                    if (_plane.Raycast(ray, out float rayDistance))
+                    if (cache.TryGetValue(vertex, out var value))
                     {
+                        hits[i] = value;
+                    }
+                    else
+                    {
+                        var end = transform.TransformPoint(_mesh.vertices[vertex]);
+
+                        var ray = new Ray(start, end - start);
+                        if (!_plane.Raycast(ray, out var rayDistance)) continue;
                         hits[i] = ray.GetPoint(rayDistance);
+                        cache.Add(vertex, hits[i]);
                     }
                 }
 
-                try
+                var meshFilter = _shadowMeshes[t / 3];
+                meshFilter.transform.position = Vector3.zero;
+
+                var mesh = meshFilter.mesh;
+
+                mesh.vertices = new[]
                 {
-                    var meshFilter = _shadowMeshes[t / 3];
-                    meshFilter.transform.position = Vector3.zero;
+                    hits[2],
+                    hits[1],
+                    hits[0]
+                };
 
-                    var vertices = new[]
-                    {
-                        hits[2],
-                        hits[1],
-                        hits[0]
-                    };
-
-                    var meshTriangles = new[]
-                    {
-                        2, 1, 0
-                    };
-
-                    var triangleMesh = new Mesh
-                    {
-                        vertices = vertices,
-                        triangles = meshTriangles,
-                        uv = new Vector2[]
-                        {
-                            hits[2],
-                            hits[1],
-                            hits[0]
-                        }
-                    };
-
-                    triangleMesh.RecalculateNormals();
-
-                    meshFilter.mesh = triangleMesh;
-                }
-                catch (Exception e)
+                mesh.uv = new Vector2[]
                 {
-                    Debug.Log(e);
-                    // ignored
-                }
+                    hits[2],
+                    hits[1],
+                    hits[0]
+                };
+                mesh.triangles = meshTriangles;
             }
         }
     }
