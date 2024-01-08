@@ -77,19 +77,14 @@ namespace Assets
 
                 var mesh = meshFilter.mesh;
 
-                mesh.vertices = new[]
-                {
-                    hits[2],
-                    hits[1],
-                    hits[0]
-                };
+                mesh.vertices[0] = hits[2];
+                mesh.vertices[1] = hits[1];
+                mesh.vertices[2] = hits[0];
 
-                mesh.uv = new Vector2[]
-                {
-                    hits[2],
-                    hits[1],
-                    hits[0]
-                };
+                mesh.uv[0] = hits[2];
+                mesh.uv[1] = hits[1];
+                mesh.uv[2] = hits[0];
+
                 mesh.triangles = meshTriangles;
             }
         }
