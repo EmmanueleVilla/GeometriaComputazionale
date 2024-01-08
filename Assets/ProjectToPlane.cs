@@ -27,6 +27,9 @@ namespace Assets
         private int[] _triangleVertices;
         private List<MeshFilter> _shadowMeshes = new();
 
+        private Vector3[] verticesCache = new Vector3[3];
+        private Vector2[] uvCache = new Vector2[3];
+
         private int[] meshTriangles = new[]
         {
             2, 1, 0
@@ -77,13 +80,16 @@ namespace Assets
 
                 var mesh = meshFilter.mesh;
 
-                mesh.vertices[0] = hits[2];
-                mesh.vertices[1] = hits[1];
-                mesh.vertices[2] = hits[0];
+                verticesCache[0] = hits[2];
+                verticesCache[1] = hits[1];
+                verticesCache[2] = hits[0];
+                mesh.vertices = verticesCache;
 
-                mesh.uv[0] = hits[2];
-                mesh.uv[1] = hits[1];
-                mesh.uv[2] = hits[0];
+                uvCache[0] = hits[2];
+                uvCache[1] = hits[1];
+                uvCache[2] = hits[0];
+
+                mesh.uv = uvCache;
 
                 mesh.triangles = meshTriangles;
             }
