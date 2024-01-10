@@ -9,9 +9,6 @@ namespace Assets
         // Projection point
         public Transform PointE;
 
-        // Line renderer prefab to draw the projections
-        public LineRenderer LineRendererPrefab;
-
         // Mesh prefab to draw the triangle
         public MeshFilter MeshPrefab;
 
@@ -20,22 +17,25 @@ namespace Assets
         // Plane used as projection screen
         private Plane _plane;
 
-        // Instantiated triangles (TODO: use a list)
-        //private MeshFilter _meshFilter;
-
         // The solid mesh and triangles
         private Mesh _mesh;
         private int[] _triangleVertices;
-        private List<MeshFilter> _shadowMeshes = new();
+        private MeshFilter _shadowMesh;
 
-        private Vector3[] verticesCache = new Vector3[3];
+        // The vertices of the mesh
         private Vector3[] _meshVertices = new Vector3[3];
-        private Vector2[] uvCache = new Vector2[3];
 
-        private int[] meshTriangles = new[]
-        {
-            2, 1, 0
-        };
+        // The vertices, uvs and triangles of the projected mesh
+        private Vector3[] _vertices;
+        private Vector3[] _uvs;
+        private Vector2[] _uvs2;
+        private int[] _triangles;
+
+        // Raycast cache
+        private Vector3[] _raycastCache;
+        private bool[] _isCached;
+
+        private Dictionary<int, Vector3> _cache;
 
         private void Start()
         {
@@ -44,59 +44,97 @@ namespace Assets
             _triangleVertices = _mesh.GetTriangles(0).ToArray();
             _meshVertices = _mesh.vertices;
 
-            // Creates the projected meshes
-            for (var t = 0; t < _triangleVertices.Length; t += 3)
-            {
-                _shadowMeshes.Add(Instantiate(MeshPrefab, ShadowParent));
-            }
+            _vertices = new Vector3[_triangleVertices.Length];
+            _uvs = new Vector3[_triangleVertices.Length];
+            _uvs2 = new Vector2[_triangleVertices.Length];
+            _triangles = new int[_triangleVertices.Length];
+            _raycastCache = new Vector3[_triangleVertices.Length];
+            _isCached = new bool[_triangleVertices.Length];
+
+            _triangles = Enumerable.Range(0, _vertices.Length).ToArray();
+
+            _cache = new Dictionary<int, Vector3>();
+
+            _shadowMesh = Instantiate(MeshPrefab, ShadowParent);
         }
 
-        Dictionary<int, Vector3> cache = new();
+        private bool _shouldRaycast = true;
 
         private void Update()
         {
-            var start = PointE.transform.position;
-            var hits = new Vector3[3];
-            cache.Clear();
-
-            for (var t = 0; t < _triangleVertices.Length; t += 3)
+            // in the odd frames we raycast, in the even frames we draw the mesh
+            if (_shouldRaycast)
             {
-                for (var i = 0; i < 3; i++)
-                {
-                    var vertex = _triangleVertices[t + i];
-                    if (cache.TryGetValue(vertex, out var value))
-                    {
-                        hits[i] = value;
-                    }
-                    else
-                    {
-                        var end = transform.TransformPoint(_meshVertices[vertex]);
+                var start = PointE.transform.position;
+                var hits = new Vector3[3];
 
-                        var ray = new Ray(start, end - start);
-                        if (!_plane.Raycast(ray, out var rayDistance)) continue;
-                        hits[i] = ray.GetPoint(rayDistance);
-                        cache.Add(vertex, hits[i]);
-                    }
+                // flagging all the vertices as not cached
+                for (var i = 0; i < _isCached.Length; i++)
+                {
+                    _isCached[i] = false;
                 }
 
-                var meshFilter = _shadowMeshes[t / 3];
-                meshFilter.transform.position = Vector3.zero;
+                // creating the ray to avoid creating a new ray every time
+                // but you wish something like ray.direction = end - start would be faster
+                var ray = new Ray(start, Vector3.zero);
 
-                var mesh = meshFilter.mesh;
+                for (var t = 0; t < _triangleVertices.Length; t += 3)
+                {
+                    for (var i = 0; i < 3; i++)
+                    {
+                        var vertex = _triangleVertices[t + i];
 
-                verticesCache[0] = hits[2];
-                verticesCache[1] = hits[1];
-                verticesCache[2] = hits[0];
-                mesh.vertices = verticesCache;
+                        // if the vertex is cached, we use the cached value
+                        if (_isCached[vertex])
+                        {
+                            hits[i] = _raycastCache[vertex];
+                        }
+                        else
+                        {
+                            var end = transform.TransformPoint(_meshVertices[vertex]);
 
-                uvCache[0] = hits[2];
-                uvCache[1] = hits[1];
-                uvCache[2] = hits[0];
+                            // setting the direction takes the same time as creating a new ray :(
+                            ray.direction = end - start;
 
-                mesh.uv = uvCache;
+                            if (!_plane.Raycast(ray, out var rayDistance)) continue;
+                            hits[i] = ray.GetPoint(rayDistance);
 
-                mesh.triangles = meshTriangles;
+                            // caching the hit
+                            _raycastCache[vertex] = hits[i];
+                            _isCached[vertex] = true;
+                        }
+                    }
+
+                    _vertices[t] = hits[2];
+                    _vertices[t + 1] = hits[1];
+                    _vertices[t + 2] = hits[0];
+
+                    // delaying the conversion to Vector2 to speed up the raycasting frame
+                    _uvs[t] = hits[2];
+                    _uvs[t + 1] = hits[1];
+                    _uvs[t + 2] = hits[0];
+                }
             }
+            else
+            {
+                _shadowMesh.transform.position = Vector3.zero;
+
+                var mesh = _shadowMesh.mesh;
+
+                mesh.vertices = _vertices.ToArray();
+
+                // converting the Vector3 to Vector2 here let us save 5ms in the raycasting frame
+                for (var i = 0; i < _uvs.Length; i++)
+                {
+                    _uvs2[i] = new Vector2(_uvs[i].x, _uvs[i].y);
+                }
+
+                mesh.uv = _uvs2;
+
+                mesh.triangles = _triangles.ToArray();
+            }
+
+            _shouldRaycast = !_shouldRaycast;
         }
     }
 }
