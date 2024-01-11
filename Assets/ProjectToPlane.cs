@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets
@@ -7,15 +8,11 @@ namespace Assets
     public class ProjectToPlane : MonoBehaviour
     {
         // Projection point
-        public Transform PointE;
-
-        // Mesh prefab to draw the triangle
-        public MeshFilter MeshPrefab;
-
-        public Transform ShadowParent;
+        private Transform _pointE;
+        private Transform _shadowParent;
 
         public bool RaycastInOddFrames = true;
-        
+
         // Plane used as projection screen
         private Plane _plane;
 
@@ -42,8 +39,11 @@ namespace Assets
 
         private void Start()
         {
+            _pointE = GameObject.FindGameObjectWithTag("E").transform;
+            _shadowParent = GameObject.FindGameObjectWithTag("Shadow").transform;
+
             _plane = new Plane(Vector3.left, 0);
-            _mesh = GetComponent<SkinnedMeshRenderer>().sharedMesh;
+            _mesh = GetComponent<MeshFilter>().sharedMesh;
             _triangleVertices = _mesh.GetTriangles(0).ToArray();
             _meshVertices = _mesh.vertices;
 
@@ -58,7 +58,8 @@ namespace Assets
 
             _cache = new Dictionary<int, Vector3>();
 
-            _shadowMesh = Instantiate(MeshPrefab, ShadowParent);
+            var meshPrefab = Resources.Load("ShadowMesh");
+            _shadowMesh = Instantiate(meshPrefab, _shadowParent).GetComponent<MeshFilter>();
 
             _shouldRaycast = RaycastInOddFrames;
         }
@@ -69,7 +70,7 @@ namespace Assets
             // in the odd frames we raycast, in the even frames we draw the mesh
             if (_shouldRaycast)
             {
-                var start = PointE.transform.position;
+                var start = _pointE.transform.position;
                 var hits = new Vector3[3];
 
                 // flagging all the vertices as not cached
