@@ -908,6 +908,7 @@ MonoBehaviour:
   MeshPrefab: {fileID: 7043677253997126302, guid: aff24dbe5cb8a4083b7f01cf06515dc5,
     type: 3}
   ShadowParent: {fileID: 623549875}
+  ShouldRaycastInOddFrames: 1
 --- !u!1001 &294609637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4974,6 +4975,7 @@ MonoBehaviour:
   MeshPrefab: {fileID: 7043677253997126302, guid: aff24dbe5cb8a4083b7f01cf06515dc5,
     type: 3}
   ShadowParent: {fileID: 623549875}
+  ShouldRaycastInOddFrames: 0
 --- !u!1 &1727634673
 GameObject:
   m_ObjectHideFlags: 0

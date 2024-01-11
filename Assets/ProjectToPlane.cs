@@ -14,6 +14,8 @@ namespace Assets
 
         public Transform ShadowParent;
 
+        public bool RaycastInOddFrames = true;
+        
         // Plane used as projection screen
         private Plane _plane;
 
@@ -36,6 +38,7 @@ namespace Assets
         private bool[] _isCached;
 
         private Dictionary<int, Vector3> _cache;
+        private bool _shouldRaycast = true;
 
         private void Start()
         {
@@ -56,9 +59,10 @@ namespace Assets
             _cache = new Dictionary<int, Vector3>();
 
             _shadowMesh = Instantiate(MeshPrefab, ShadowParent);
+
+            _shouldRaycast = RaycastInOddFrames;
         }
 
-        private bool _shouldRaycast = true;
 
         private void Update()
         {
