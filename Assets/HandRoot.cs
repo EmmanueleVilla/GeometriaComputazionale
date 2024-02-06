@@ -16,15 +16,17 @@ public class HandRoot : MonoBehaviour
     private float _rotationX, _rotationY, _rotationZ;
     private float _positionX, _positionY, _positionZ;
 
+    private Transform _myTransform;
+
     public void Awake() {
-	    var myTransform = transform;
+	    _myTransform = transform;
 	    
-	    var localEulerAngles = myTransform.localEulerAngles;
+	    var localEulerAngles = _myTransform.localEulerAngles;
 	    xRotationSlider.value = localEulerAngles.x;
         yRotationSlider.value = localEulerAngles.y;
         zRotationSlider.value = localEulerAngles.z;
 
-        var position = myTransform.position;
+        var position = _myTransform.position;
         xPositionSlider.value = position.x;
         yPositionSlider.value = position.y;
         zPositionSlider.value = position.z;
@@ -71,15 +73,15 @@ public class HandRoot : MonoBehaviour
         _positionZ = zPositionSlider.value;
 	}
 
-	private bool initialized = false;
-	
-    void Update()
+	private bool _initialized = false;
+
+	private void Update()
     {
 	    if (!(Time.timeSinceLevelLoad > 1)) return;
 	    
-	    if (!initialized)
+	    if (!_initialized)
 	    {
-		    initialized = true;
+		    _initialized = true;
 		    
 		    _rotationX = xRotationSlider.value;
 		    _rotationY = yRotationSlider.value;
@@ -97,7 +99,7 @@ public class HandRoot : MonoBehaviour
 		    zPositionSlider.onValueChanged.AddListener (delegate {ZPositionValueChangeCheck ();});
 	    }
 		    
-	    transform.localEulerAngles = new Vector3(_rotationX, _rotationY, _rotationZ);
-	    transform.position = new Vector3(_positionX, _positionY, _positionZ);
+	    _myTransform.localEulerAngles = new Vector3(_rotationX, _rotationY, _rotationZ);
+	    _myTransform.position = new Vector3(_positionX, _positionY, _positionZ);
     }
 }
