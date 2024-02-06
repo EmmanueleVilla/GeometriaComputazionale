@@ -79,10 +79,6 @@ namespace Assets
                     _isCached[i] = false;
                 }
 
-                // creating the ray to avoid creating a new ray every time
-                // but you wish something like ray.direction = end - start would be faster
-                var ray = new Ray(start, Vector3.zero);
-
                 for (var t = 0; t < _triangleVertices.Length; t += 3)
                 {
                     for (var i = 0; i < 3; i++)
@@ -98,11 +94,10 @@ namespace Assets
                         {
                             var end = transform.TransformPoint(_meshVertices[vertex]);
 
-                            // setting the direction takes the same time as creating a new ray :(
-                            ray.direction = end - start;
-
-                            if (!_plane.Raycast(ray, out var rayDistance)) continue;
-                            hits[i] = ray.GetPoint(rayDistance);
+                            Vector3 direction = end - start;
+                            float paramT = -start.x / direction.x;
+                            
+                            hits[i] = new Vector3(0, start.y + direction.y * paramT, start.z + direction.z * paramT);
 
                             // caching the hit
                             _raycastCache[vertex] = hits[i];
