@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17867362, g: 0.21782619, b: 0.2717045, a: 1}
+  m_IndirectSpecularColor: {r: 0.17867398, g: 0.21782637, b: 0.2717049, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 39751818}
   - component: {fileID: 39751819}
   m_Layer: 5
-  m_Name: PositionSliderY
+  m_Name: RotationSliderZ
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2628,7 +2628,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -1.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -2684,6 +2684,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a180392b188bbb240ab476781caccd1d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -2819,6 +2824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: hand_right
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a180392b188bbb240ab476781caccd1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1039632107741130563, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -10709,7 +10719,7 @@ GameObject:
   - component: {fileID: 803221723}
   - component: {fileID: 803221724}
   m_Layer: 5
-  m_Name: PositionSliderZ
+  m_Name: RotationSliderY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13630,6 +13640,12 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1013981267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4975973104261240014, guid: 40fa74fde3de64a4c8e4eb8275bef359,
+    type: 3}
+  m_PrefabInstance: {fileID: 2473846545373619261}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1014567374
 GameObject:
   m_ObjectHideFlags: 0
@@ -17012,7 +17028,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -20993,6 +21009,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2473846545373619261}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1556457920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013981267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff10745e618d2c84294b7130b7c65e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionSlider: {fileID: 1432173611}
+  rotationZSlider: {fileID: 39751819}
+  rotationYSlider: {fileID: 803221724}
 --- !u!1 &1561597416
 GameObject:
   m_ObjectHideFlags: 0
@@ -27049,10 +27080,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Intensity: 100
+  m_Range: 50
+  m_SpotAngle: 31.714516
+  m_InnerSpotAngle: 29.811426
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -29029,7 +29060,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1982101019}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4975973104261240014, guid: 40fa74fde3de64a4c8e4eb8275bef359,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1556457920}
   m_SourcePrefab: {fileID: 100100000, guid: 40fa74fde3de64a4c8e4eb8275bef359, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
