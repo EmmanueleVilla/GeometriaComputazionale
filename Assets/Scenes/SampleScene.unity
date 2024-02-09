@@ -3032,17 +3032,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.48
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -6176,6 +6176,7 @@ GameObject:
   - component: {fileID: 398625342}
   - component: {fileID: 398625341}
   - component: {fileID: 398625340}
+  - component: {fileID: 398625343}
   m_Layer: 5
   m_Name: Dog
   m_TagString: Untagged
@@ -6246,7 +6247,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 398625341}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 398625343}
+        m_TargetAssemblyTypeName: LoadState, Assembly-CSharp
+        m_MethodName: Restore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &398625341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6285,6 +6298,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398625338}
   m_CullTransparentMesh: 1
+--- !u!114 &398625343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398625338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8228c5de104f364469cbd8266dc04db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  json: {fileID: 4900000, guid: 80926a96006ef9846be6a691b9812ef9, type: 3}
 --- !u!1 &398740835
 GameObject:
   m_ObjectHideFlags: 0
@@ -15261,7 +15287,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 866726451}
   m_HandleRect: {fileID: 1004491888}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -20
   m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 0
@@ -16344,7 +16370,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1814030677}
   m_HandleRect: {fileID: 1197609314}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -50
   m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 0
@@ -17151,6 +17177,7 @@ GameObject:
   - component: {fileID: 1162915504}
   - component: {fileID: 1162915503}
   - component: {fileID: 1162915502}
+  - component: {fileID: 1162915505}
   m_Layer: 5
   m_Name: Pigeon
   m_TagString: Untagged
@@ -17221,7 +17248,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1162915503}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1162915505}
+        m_TargetAssemblyTypeName: LoadState, Assembly-CSharp
+        m_MethodName: Restore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1162915503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17260,6 +17299,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162915500}
   m_CullTransparentMesh: 1
+--- !u!114 &1162915505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162915500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8228c5de104f364469cbd8266dc04db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  json: {fileID: 4900000, guid: 1e86832541eb1224492eaed1d3e12894, type: 3}
 --- !u!114 &1166092225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18273,17 +18325,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.63
+      value: -0.98
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -18313,12 +18365,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8122506975613623707, guid: a180392b188bbb240ab476781caccd1d,
         type: 3}
@@ -21390,7 +21442,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1135054558}
   m_HandleRect: {fileID: 1793696544}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -50
   m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 0
@@ -28884,8 +28936,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 100
   m_Range: 50
-  m_SpotAngle: 31.714516
-  m_InnerSpotAngle: 29.811426
+  m_SpotAngle: 75
+  m_InnerSpotAngle: 50
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -29090,7 +29142,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 2004711741}
   m_HandleRect: {fileID: 934738040}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -20
   m_MaxValue: 90
   m_WholeNumbers: 1
   m_Value: 0
@@ -30567,6 +30619,7 @@ GameObject:
   - component: {fileID: 2136081841}
   - component: {fileID: 2136081840}
   - component: {fileID: 2136081839}
+  - component: {fileID: 2136081842}
   m_Layer: 5
   m_Name: Crab
   m_TagString: Untagged
@@ -30637,7 +30690,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2136081840}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2136081842}
+        m_TargetAssemblyTypeName: LoadState, Assembly-CSharp
+        m_MethodName: Restore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2136081840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30676,6 +30741,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136081837}
   m_CullTransparentMesh: 1
+--- !u!114 &2136081842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136081837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8228c5de104f364469cbd8266dc04db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  json: {fileID: 4900000, guid: 9e16c015d2df55943b4aaf9d9581e4dd, type: 3}
 --- !u!1 &2139750683
 GameObject:
   m_ObjectHideFlags: 0
