@@ -58,7 +58,7 @@ public class SaveState : MonoBehaviour
 
     private HandData GetHandData(string tag)
     {
-        var rightHand = GameObject.FindGameObjectWithTag("HandLeft");
+        var rightHand = GameObject.FindGameObjectWithTag(tag);
         var position = rightHand.transform.position;
         var rotation = rightHand.transform.localEulerAngles;
 
