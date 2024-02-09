@@ -16,17 +16,25 @@
   <div style="margin: auto; width: 800px">
     <header>Teoria</header>
     <h2>Proiezione</h2>
-    <p>Per la realizzazione delle ombre cinesi è necessario proiettare il modello 3D della mano sullo schermo del palco, quindi ottenere una proiezione di un oggetto 3D su un piano.
-	Gli elementi necessari per questo meccanismo sono
+	<p>L'obbietivo dell'applicativo è proiettare due mani per formare delle ombre cinesi sullo schermo di un palco, creando quindi la proiezione degli oggetti 3D sul piano utilizzando la geometria proiettiva.
+		Il modello utilizzato è quello formato da:
 	<ul>
-	<li>il punto E, punto di vista della proiezione</li>
-	<li>piano di proiezione π, disgiunto dal punto E</li>
-	<li>oggetto da proiettare, disgiunto dal punto E e dal piano π</li>
+	<li>Il centro di proiezione, che chiamiamo punto E, che funge da punto di vista</li>
+	<li>Il piano immagine, o schermo, che chiamiamo π, disgiunto dal punto E</li>
+	<li>L'oggetto da proiettare, disgiunto dal punto E e dal piano π</li>
 	</ul>
-	L'ombra è il risultato della proiezione della mano a partire dalla luce nella scena. La luce stessa rappresenta il punto di vista della proiezione, quindi il punto E. Il piano π, invece, corrisponde allo schermo del palco, cioè la parete su cui verrà proiettata l'ombra. La mano, oggetto proiettato, è disgiunta da entrambi questi elementi e non ha punti in comune.
-	La proiezione si ottiene individuando i punti di intersezione tra il piano di proiezione e le rette passanti per il punto E e i vertici dell'oggetto. In particolare, trattando un oggetto complesso, è necessario proiettare i singoli triangoli che compongono il modello della mano per ottenere un'ombra precisa.
+	Prendiamo in considerazione la retta passante per il punto P, appartenente all'oggetto, e il punto E. Tale retta interseca il piano in un punto P', che rappresenta la proiezione di P sullo schermo stesso. <br />
+	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, perché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.
+
+	<div style="text-align: center">
+		<img src="proiezione_p.png" height="200" style="margin: 20px;"/>
+		</div>
+
+	L'ombra è il risultato della proiezione della mano a partire dal punto E, che rappresenta il punto di vista della proiezione. Il piano π, invece, corrisponde allo schermo del palco, cioè la parete su cui verrà proiettata l'ombra. La mano, oggetto proiettato, è disgiunta da entrambi questi elementi e non ha punti in comune con essi.
+	La proiezione si ottiene individuando i punti di intersezione tra il piano di proiezione e le rette passanti per il punto E e i vertici dell'oggetto.<br />
+	 In particolare, trattandosi di un oggetto complesso, ad ogni faccia facciamo corrispondere un triangolo proiettato, i cui vertici vengono utilizzati per creare la mesh dell'ombra completa.
 	</p>
-    <h2>Intersezione retta-piano</h2>
+    <h3>Intersezione retta-piano</h3>
     <p>
 	Dato un vertice P del poligono, la retta r passante per i punti P ed E è definita dalla seguente equazione
 	<div style="text-align: center">
@@ -47,14 +55,19 @@
 	</div>
 	Ripetendo il procedimento per ogni vertice di ogni triangolo del modello si ottengono i punti della proiezione, cioè dell'ombra cercata.
 	</p>
-    <h2>Rototraslazioni</h2>
+    <h2>Trasformazioni geometriche</h2>
     <p>
-	Con l'obiettivo di mettere a disposizione varie rappresentazioni di ombre è necessario applicare trasformazioni affini all'oggetto, in modo da poterlo traslare e ruotare.</br>
-	Una trasformazione affine può essere descritta come
+	Con l'obiettivo di mettere a disposizione varie rappresentazioni di ombre è necessario applicare trasformazioni affini all'oggetto e ai sotto-oggetti di cui è composto, in modo da poterlo traslare e ruotare.</br>
+	Una trasformazione affine è una classe di trasformazioni geometriche che preserva la linearità delle rette e la coplanarità dei punti. In altre parole, durante una trasformazione affine, i punti allineati rimarranno allineati, e i punti che giacciono sullo stesso piano prima della trasformazione continueranno a farlo dopo la trasformazione.<br />
+	Essa può essere descritta come
 	<div style="text-align: center">
 	<img src="trasformazioni_affini.svg" style="margin: 20px;"/>
 	</div>
-	In questo caso è sufficiente applicare traslazioni e rotazioni agli oggetti coinvolti nella proiezione.
+	Dove A è una matrice quadrata invertibile. <br />
+
+	Le trasformazioni affini includono traslazioni, rotazioni, ridimensionamenti, e riflessioni. Nell'ambito della nostra applicazione, utilizziamo traslazioni e rotazioni per posizionare e orientare correttamente le mani sul piano di proiezione.
+  
+	<h3>Rototraslazione</h3>
 	Si ha una trasformazione di traslazione se A = I e c ≠ 0. c rappresenta il vettore di traslazione che sposta ogni punto P in P' tale che P' - P = c. La traslazione è una operazione commutativa ed è chiusa in quanto la composizione di più traslazioni è essa stessa una traslazione.
 	<div style="text-align: center">
 	<img src="traslazione.svg" style="margin: 20px;"/>
@@ -63,7 +76,6 @@
 	<div style="text-align: center">
 	<img src="rotazione.svg" style="margin: 20px;"/>
 	</div>
-	La composizione di traslazioni e rotazioni permette l'orientamento corretto dell'oggetto in modo da ottenere diverse proiezioni, quindi ombre di diverse forme.
-	</p>
+	La combinazione sequenziale di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. Ad esempio, per determinare la posizione finale di un punto sulla falangetta del dito indice, è necessario combinare le rotazioni della falangetta, della falangina, della falange e del polso.	</p>
   </div>
 </body></html>

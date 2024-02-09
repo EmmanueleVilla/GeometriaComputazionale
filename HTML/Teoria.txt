@@ -1,5 +1,5 @@
 Proiezione
-Per la realizzazione delle ombre cinesi è necessario proiettare il modello 3D della mano sullo schermo del palco, quindi ottenere una proiezione di un oggetto 3D su un piano.
+Per la realizzazione delle ombre cinesi è necessario proiettare il modello 3D della mano sullo schermo del palco, quindi ottenere una proiezione di un oggetto 3D su un piano.
 Gli elementi necessari per questo meccanismo sono
 - il punto E, punto di vista della proiezione
 - piano di proiezione pi greco, disgiunto dal punto E
