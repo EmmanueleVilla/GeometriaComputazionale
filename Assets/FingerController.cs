@@ -1,3 +1,4 @@
+using Assets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class FingerController : MonoBehaviour
     public Slider slider;
 
     private float _rotationX;
+
 
     private void Awake()
     {

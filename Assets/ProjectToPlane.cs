@@ -13,9 +13,6 @@ namespace Assets
 
         public bool RaycastInOddFrames = true;
 
-        // Plane used as projection screen
-        private Plane _plane;
-
         // The solid mesh and triangles
         private Mesh _mesh;
         private int[] _triangleVertices;
@@ -34,7 +31,6 @@ namespace Assets
         private Vector3[] _raycastCache;
         private bool[] _isCached;
 
-        private Dictionary<int, Vector3> _cache;
         private bool _shouldRaycast = true;
 
         private void Start()
@@ -42,7 +38,6 @@ namespace Assets
             _pointE = GameObject.FindGameObjectWithTag("E").transform;
             _shadowParent = GameObject.FindGameObjectWithTag("Shadow").transform;
 
-            _plane = new Plane(Vector3.left, 0);
             _mesh = GetComponent<MeshFilter>().sharedMesh;
             _triangleVertices = _mesh.GetTriangles(0).ToArray();
             _meshVertices = _mesh.vertices;
@@ -55,8 +50,6 @@ namespace Assets
             _isCached = new bool[_triangleVertices.Length];
 
             _triangles = Enumerable.Range(0, _vertices.Length).ToArray();
-
-            _cache = new Dictionary<int, Vector3>();
 
             var meshPrefab = Resources.Load("ShadowMesh");
             _shadowMesh = Instantiate(meshPrefab, _shadowParent).GetComponent<MeshFilter>();
@@ -96,7 +89,7 @@ namespace Assets
 
                             Vector3 direction = end - start;
                             float paramT = -start.x / direction.x;
-                            
+
                             hits[i] = new Vector3(0, start.y + direction.y * paramT, start.z + direction.z * paramT);
 
                             // caching the hit
@@ -132,6 +125,7 @@ namespace Assets
                 mesh.uv = _uvs2;
 
                 mesh.triangles = _triangles.ToArray();
+
             }
 
             _shouldRaycast = !_shouldRaycast;

@@ -1,3 +1,4 @@
+using Assets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,6 @@ public class HandRoot : MonoBehaviour
         yPositionSlider.value = position.y;
         zPositionSlider.value = position.z;
     }
-    
 
     public void SetPositionAndRotation(Vector3 position, Vector3 rotation) {
         xPositionSlider.value = position.x;
