@@ -1,0 +1,50 @@
+html{
+  scroll-behavior: smooth;
+  font-family: Helvetica;
+  font-size: 18px;
+}
+
+body{
+  background-color: white;
+  margin: 0;
+}
+
+#topnav{
+  overflow: hidden;
+  background-color: grey;
+  padding: 0px 0px;
+}
+
+#topnav_span{
+  display:table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.topnav_el{
+  float: left;
+  font-size: 25px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  padding: 24px 80px;
+}
+
+.topnav_el:hover{
+  background-color: lightgrey;
+}
+
+#header_div{
+  display: block;
+  position: relative;
+}
+
+header{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 50px;
+  color: black;
+  font-weight: bold;
+  align: center
+}
