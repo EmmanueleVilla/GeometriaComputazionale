@@ -3,19 +3,19 @@ using UnityEngine.UI;
 
 public class LightController : MonoBehaviour
 {
-    public Slider positionSlider;
-    public Slider rotationZSlider;
-    public Slider rotationYSlider;
+    public Slider positionXSlider;
+    public Slider positionYSlider;
+    public Slider positionZSlider;
 
-    private float _rotationZ;
-    private float _rotationY;
     private float _positionX;
+    private float _positionY;
+    private float _positionZ;
 
     private void Awake()
     {
-        rotationZSlider.value = transform.localEulerAngles.z;
-        rotationYSlider.value = transform.localEulerAngles.y;
-        positionSlider.value = transform.position.x;
+        positionXSlider.value = transform.position.x;
+        positionYSlider.value = transform.position.y;
+        positionZSlider.value = transform.position.z;
     }
 
     private bool _initialized = false;
@@ -27,30 +27,31 @@ public class LightController : MonoBehaviour
         if (!_initialized)
         {
             _initialized = true;
-            _rotationZ = rotationZSlider.value;
-            _positionX = positionSlider.value;
 
-            rotationZSlider.onValueChanged.AddListener(delegate { RotationZValueChangeCheck(); });
-            rotationYSlider.onValueChanged.AddListener(delegate { RotationYValueChangeCheck(); });
-            positionSlider.onValueChanged.AddListener(delegate { PositionValueChangeCheck(); });
+            _positionX = positionXSlider.value;
+            _positionY = positionYSlider.value;
+            _positionZ = positionZSlider.value;
+
+            positionXSlider.onValueChanged.AddListener(delegate { PositionXValueChangeCheck(); });
+            positionYSlider.onValueChanged.AddListener(delegate { PositionYValueChangeCheck(); });
+            positionZSlider.onValueChanged.AddListener(delegate { PositionZValueChangeCheck(); });
         }
 
-        transform.localEulerAngles = new Vector3(0, _rotationY, _rotationZ);
-        transform.position = new Vector3(_positionX, transform.position.y);
+        transform.position = new Vector3(_positionX, _positionY, _positionZ);
     }
 
-    private void RotationZValueChangeCheck()
+    private void PositionXValueChangeCheck()
     {
-        _rotationZ = rotationZSlider.value;
+        _positionX = positionXSlider.value;
     }
 
-    private void RotationYValueChangeCheck()
+    private void PositionYValueChangeCheck()
     {
-        _rotationY = rotationYSlider.value;
+        _positionY = positionYSlider.value;
     }
 
-    private void PositionValueChangeCheck()
+    private void PositionZValueChangeCheck()
     {
-        _positionX = positionSlider.value;
+        _positionZ = positionZSlider.value;
     }
 }
