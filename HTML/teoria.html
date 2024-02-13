@@ -24,7 +24,8 @@
 	<li>L'oggetto da proiettare, disgiunto dal punto E e dal piano π</li>
 	</ul>
 	Prendiamo in considerazione la retta passante per il punto P, appartenente all'oggetto, e il punto E. Tale retta interseca il piano in un punto P', che rappresenta la proiezione di P sullo schermo stesso. <br />
-	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, perché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.
+	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, perché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
+	Più comunemente una proiezione è rappresentata come di seguito, con il piano di proiezione posizionato tra l'oggetto e il punto E. In questo caso particolare è il nostro oggetto da proiettare che si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
 
 	<div style="text-align: center">
 		<img src="proiezione_p.png" height="200" style="margin: 20px;"/>
@@ -40,7 +41,7 @@
 	<div style="text-align: center">
 	<img src="retta_r.svg" style="margin: 20px;"/>
 	</div>
-	Il piano π è posizionato, per semplicità, ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. La sua equazione è quindi
+	Il piano π, per semplicità, è fisso e posizionato ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. La sua equazione è quindi
 	<div style="text-align: center">
 	<img src="equazione_piano.svg" style="margin: 20px;"/>
 	</div>
@@ -49,7 +50,9 @@
 	<img src="parametro_t.svg" style="margin: 20px;"/>
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
-	In alternativa è possibile calcolare la matrice M di proiezione e procedere tramite calcolo matriciale, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
+	</p>
+	<p>
+	In alternativa è possibile calcolare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
 	<div style="text-align: center">
 	<img src="calcolo_matrici.svg" style="margin: 20px;"/>
 	</div>
@@ -64,9 +67,7 @@
 	<img src="trasformazioni_affini.svg" style="margin: 20px;"/>
 	</div>
 	Dove A è una matrice quadrata invertibile. <br />
-
-	Le trasformazioni affini includono traslazioni, rotazioni, ridimensionamenti, e riflessioni. Nell'ambito della nostra applicazione, utilizziamo traslazioni e rotazioni per posizionare e orientare correttamente le mani sul piano di proiezione.
-  
+	Le trasformazioni affini includono traslazioni, rotazioni, ridimensionamenti, e riflessioni. Nell'ambito della nostra applicazione, utilizziamo traslazioni e rotazioni per posizionare e orientare correttamente le mani sul piano di proiezione e la fonte di luce.
 	<h3>Rototraslazione</h3>
 	Si ha una trasformazione di traslazione se A = I e c ≠ 0. c rappresenta il vettore di traslazione che sposta ogni punto P in P' tale che P' - P = c. La traslazione è una operazione commutativa ed è chiusa in quanto la composizione di più traslazioni è essa stessa una traslazione.
 	<div style="text-align: center">
