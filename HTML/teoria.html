@@ -17,16 +17,15 @@
     <header>Teoria</header>
     <h2>Proiezione</h2>
 	<p>L'obbietivo dell'applicativo è proiettare due mani per formare delle ombre cinesi sullo schermo di un palco, creando quindi la proiezione degli oggetti 3D sul piano utilizzando la geometria proiettiva.
-		Il modello utilizzato è quello formato da:
+		Il modello utilizzato è composto da:
 	<ul>
 		<li>Il centro di proiezione, che chiamiamo punto E, che funge da punto di vista</li>
 		<li>Il piano immagine, o schermo, che chiamiamo π, disgiunto dal punto E</li>
 		<li>L'oggetto da proiettare, disgiunto dal punto E e dal piano π</li>
 	</ul>
 	Prendiamo in considerazione la retta passante per il punto P, appartenente all'oggetto, e il punto E. Tale retta interseca il piano in un punto P', che rappresenta la proiezione di P sullo schermo stesso. <br />
-	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, perché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
-	Più comunemente una proiezione è rappresentata come di seguito, con il piano di proiezione posizionato tra l'oggetto e il punto E. In questo caso particolare è il nostro oggetto da proiettare che si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
-
+	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, poiché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
+	Più comunemente, una proiezione è rappresentata con il piano di proiezione posizionato tra l'oggetto e il punto E. In questo caso particolare, l'oggetto da proiettare si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
 	<div style="text-align: center">
 		<img src="proiezione_p.png" height="200" style="margin: 20px;"/>
 		</div>
@@ -50,36 +49,36 @@
 		<img src="parametro_t.svg" style="margin: 20px;"/>
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
-	</p>
+	</p>
 	<p>
 	In alternativa è possibile calcolare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
 	<div style="text-align: center">
 		<img src="calcolo_matrici.svg" style="margin: 20px;"/>
 	</div>
+	Le coordinate omogenee hanno vari vantaggi, tra cui la possibilità di rappresentare traslazioni e proiezioni in modo uniforme, e la possibilità di rappresentare punti all'infinito. Inoltre, le coordinate omogenee sono invarianti rispetto alle trasformazioni affini, il che significa che le coordinate omogenee di un punto trasformato sono le stesse del punto originale trasformate dalla stessa trasformazione.
 	Ripetendo il procedimento per ogni vertice di ogni triangolo del modello si ottengono i punti della proiezione, cioè dell'ombra cercata.
 	</p>
     <h2>Trasformazioni geometriche</h2>
     <p>
-	Con l'obiettivo di mettere a disposizione varie rappresentazioni di ombre è necessario applicare trasformazioni affini all'oggetto e ai sotto-oggetti di cui è composto, in modo da poterlo traslare e ruotare.</br>
+	Con l'obiettivo di mettere a disposizione varie rappresentazioni di ombre e permettere all'utente di crearne di nuove, è necessario applicare trasformazioni affini all'oggetto e ai sotto-oggetti di cui è composto, in modo da poterlo traslare e ruotare.</br>
 	Una trasformazione affine è una classe di trasformazioni geometriche che preserva la linearità delle rette e la coplanarità dei punti. In altre parole, durante una trasformazione affine, i punti allineati rimarranno allineati, e i punti che giacciono sullo stesso piano prima della trasformazione continueranno a farlo dopo la trasformazione.<br />
-	Essa può essere descritta come
+	Queste trasformazioni possono essere descritte dalla seguente formula, in cui A rappresenta una matrice quadrata invertibile:
 	<div style="text-align: center">
 		<img src="trasformazioni_affini.svg" style="margin: 20px;"/>
 	</div>
-	Dove A è una matrice quadrata invertibile. <br />
-	Le trasformazioni affini includono traslazioni, rotazioni, ridimensionamenti, e riflessioni. Nell'ambito della nostra applicazione, utilizziamo traslazioni e rotazioni per posizionare e orientare correttamente le mani sul piano di proiezione e la fonte di luce.
-	</p>
+	Le trasformazioni affini, che includono traslazioni, rotazioni, ridimensionamenti e riflessioni, svolgono un ruolo fondamentale nella nostra applicazione. In particolare, utilizziamo traslazioni e rotazioni per posizionare e orientare accuratamente le mani rispetto al piano di proiezione e alla fonte di luce, e per ruotare le falangi l'una rispetto all'altra, e rispetto al polso.</p>
 	<h3>Rototraslazione</h3>
     <p>
 	Si ha una trasformazione di traslazione se A = I e c ≠ 0. c rappresenta il vettore di traslazione che sposta ogni punto P in P' tale che P' - P = c. La traslazione è una operazione commutativa ed è chiusa in quanto la composizione di più traslazioni è essa stessa una traslazione.
 	<div style="text-align: center">
 		<img src="traslazione.svg" style="margin: 20px;"/>
 	</div>
-	La rotazione è definita attorno agli assi locali dell'oggetto. Per ogni asse attorno al quale si deve ruotare si definisce un angolo di rotazione che viene applicato dalla matrice di rotazione che ruota l'oggetto su ogni asse indipendentemente.
+	La rotazione è definita in un sistema di riferimento locale all'oggetto, in modo da mantenere la gerarchia della struttura della mano. Per ogni asse attorno al quale si deve ruotare si definisce un angolo di rotazione che viene applicato dalla matrice di rotazione che ruota l'oggetto su ogni asse indipendentemente.
 	<div style="text-align: center">
 		<img src="rotazione.svg" style="margin: 20px;"/>
 	</div>
-	La combinazione sequenziale di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. Ad esempio, per determinare la posizione finale di un punto sulla falangetta del dito indice, è necessario combinare le rotazioni della falangetta, della falangina, della falange e del polso.
+	La combinazione sequenziale di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. <br />
+	Ad esempio, per determinare la posizione finale di un punto sulla falangetta del dito indice, è necessario combinare le rotazioni della falangetta, della falangina, della falange e del polso, in modo da ottenere la rotazione rispetto al sistema di riferimento "mondo".
 	</p>
 	<h3>Camera Proiettiva</h3>
     <p>
@@ -104,7 +103,7 @@
 	La matrice A è una matrice diagonale, quindi la sua inversa R può essere calcolata come la trasposta di A ed è formata dai versori riga che formano il sistema di riferimento nel centro della camera.
 	</p>
     <p>
-	La matrice P della camera è la combinazione delle matrici descritte
+		La matrice P della camera è quindi la combinazione delle matrici descritte.
 	<div style="text-align: center">
 		<img src="matrice_P.svg" style="margin: 20px;"/>
 	</div>
