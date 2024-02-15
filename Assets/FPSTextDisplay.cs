@@ -18,7 +18,8 @@ public class FPSTextDisplay : MonoBehaviour
         style.alignment = TextAnchor.UpperLeft;
         style.fontSize = 20;
         style.normal.textColor = Color.white;
-
+#if DEBUG
         GUI.Label(rect, "FPS: " + fps, style);
+#endif
     }
 }
