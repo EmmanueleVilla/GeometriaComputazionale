@@ -7,7 +7,7 @@
 <body id="main_body">
   <div id="topnav">
     <span id="topnav_span">
-      <a class="topnav_el" href="home.html">Home</a>
+      <a class="topnav_el" href="index.html">Home</a>
       <a class="topnav_el" href="teoria.html">Teoria</a>
       <a class="topnav_el" href="#">Manuale</a>
       <a class="topnav_el" href="progetto.html">Progetto</a>
@@ -28,13 +28,13 @@
 	Ogni fascia è divisa in rotazione, posizione, pollice, indice, medio, anulare, mignolo e offre controlli slider per la modifica dei valori.
 	</p>
 	<p>
-	La rotazione permette di ruotare la mano attorno a ognuno degli assi specificati.
+	La rotazione permette di ruotare la mano attorno a ognuno degli assi locali specificati.
 	</p>
 	<div style="text-align: center">
 	<img src="ui_rotation.png" width="250px" style="margin: auto;"/>
 	</div>
 	<p>
-	Allo stesso modo della rotazione, la posizione può essere controllata per ogni asse.
+	Allo stesso modo della rotazione, la posizione può essere controllata per ogni asse limitata dalla posizione lungo l'asse X della fonte di luce in modo da non permettere sovrapposizioni e mantenere le mani tra la fonte di luce e lo schermo.
 	</p>
 	<div style="text-align: center">
 	<img src="ui_position.png" width="250px" style="margin: auto;"/>
@@ -55,7 +55,7 @@
 	</div>
     <h2>Luce</h2>
 	<p>
-	La fonte di luce è puntiforme, quindi non è necessaria una modifica della rotazione, può essere però, spostata e riposizionata in maniera simile alle mani con controlli per i singoli assi nella parte superiore dell'interfaccia.
+	La fonte di luce è puntiforme, quindi non è necessaria una modifica della rotazione, può essere però, spostata e riposizionata in maniera simile alle mani con controlli per i singoli assi nella parte superiore dell'interfaccia. La modifica della posizione lungo l'asse X è limitata dalla mano più vicina seguendo gli stessi limiti posti per la posizione delle mani.
 	</p>
 	<div style="text-align: center">
 	<img src="ui_light.png" width="250px" style="margin: auto;"/>
