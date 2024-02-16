@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <title>Teoria</title>
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="res/main.css">
 </head>
 
 <body id="main_body">
@@ -27,7 +27,7 @@
 	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, poiché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
 	Più comunemente, una proiezione è rappresentata con il piano di proiezione posizionato tra l'oggetto e il punto E. In questo caso particolare, l'oggetto da proiettare si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
 	<div style="text-align: center">
-		<img src="proiezione_p.png" height="200" style="margin: 20px;"/>
+		<img src="res/teoria/proiezione_p.png" height="200" style="margin: 20px;"/>
 		</div>
 
 	L'ombra è il risultato della proiezione della mano a partire dal punto E, che rappresenta il punto di vista della proiezione. Il piano π, invece, corrisponde allo schermo del palco, cioè la parete su cui verrà proiettata l'ombra. La mano, oggetto proiettato, è disgiunta da entrambi questi elementi e non ha punti in comune con essi.
@@ -38,22 +38,22 @@
     <p>
 	Dato un vertice P del poligono, la retta r passante per i punti P ed E è definita dalla seguente equazione
 	<div style="text-align: center">
-		<img src="retta_r.svg" style="margin: 20px;"/>
+		<img src="res/teoria/retta_r.svg" style="margin: 20px;"/>
 	</div>
 	Il piano π, per semplicità, è fisso e posizionato ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. La sua equazione è quindi
 	<div style="text-align: center">
-		<img src="equazione_piano.svg" style="margin: 20px;"/>
+		<img src="res/teoria/equazione_piano.svg" style="margin: 20px;"/>
 	</div>
 	Per calcolare il punto di intersezione tra la retta r e il piano π è sufficiente calcolare il parametro t sostituendo i parametri della retta nell'equazione del piano
 	<div style="text-align: center">
-		<img src="parametro_t.svg" style="margin: 20px;"/>
+		<img src="res/teoria/parametro_t.svg" style="margin: 20px;"/>
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
 	</p>
 	<p>
 	In alternativa è possibile calcolare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
 	<div style="text-align: center">
-		<img src="calcolo_matrici.svg" style="margin: 20px;"/>
+		<img src="res/teoria/calcolo_matrici.svg" style="margin: 20px;"/>
 	</div>
 	Le coordinate omogenee hanno vari vantaggi, tra cui la possibilità di rappresentare traslazioni e proiezioni in modo uniforme, e la possibilità di rappresentare punti all'infinito. Inoltre, le coordinate omogenee sono invarianti rispetto alle trasformazioni affini, il che significa che le coordinate omogenee di un punto trasformato sono le stesse del punto originale trasformate dalla stessa trasformazione.
 	Ripetendo il procedimento per ogni vertice di ogni triangolo del modello si ottengono i punti della proiezione, cioè dell'ombra cercata.
@@ -64,18 +64,18 @@
 	Una trasformazione affine è una classe di trasformazioni geometriche che preserva la linearità delle rette e la coplanarità dei punti. In altre parole, durante una trasformazione affine, i punti allineati rimarranno allineati, e i punti che giacciono sullo stesso piano prima della trasformazione continueranno a farlo dopo la trasformazione.<br />
 	Queste trasformazioni possono essere descritte dalla seguente formula, in cui A rappresenta una matrice quadrata invertibile:
 	<div style="text-align: center">
-		<img src="trasformazioni_affini.svg" style="margin: 20px;"/>
+		<img src="res/teoria/trasformazioni_affini.svg" style="margin: 20px;"/>
 	</div>
 	Le trasformazioni affini, che includono traslazioni, rotazioni, ridimensionamenti e riflessioni, svolgono un ruolo fondamentale nella nostra applicazione. In particolare, utilizziamo traslazioni e rotazioni per posizionare e orientare accuratamente le mani rispetto al piano di proiezione e alla fonte di luce, e per ruotare le falangi l'una rispetto all'altra, e rispetto al polso.</p>
 	<h3>Rototraslazione</h3>
     <p>
 	Si ha una trasformazione di traslazione se A = I e c ≠ 0. c rappresenta il vettore di traslazione che sposta ogni punto P in P' tale che P' - P = c. La traslazione è una operazione commutativa ed è chiusa in quanto la composizione di più traslazioni è essa stessa una traslazione.
 	<div style="text-align: center">
-		<img src="traslazione.svg" style="margin: 20px;"/>
+		<img src="res/teoria/traslazione.svg" style="margin: 20px;"/>
 	</div>
 	La rotazione è definita in un sistema di riferimento locale all'oggetto, in modo da mantenere la gerarchia della struttura della mano. Per ogni asse attorno al quale si deve ruotare si definisce un angolo di rotazione che viene applicato dalla matrice di rotazione che ruota l'oggetto su ogni asse indipendentemente.
 	<div style="text-align: center">
-		<img src="rotazione.svg" style="margin: 20px;"/>
+		<img src="res/teoria/rotazione.svg" style="margin: 20px;"/>
 	</div>
 	La combinazione sequenziale di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. <br />
 	Ad esempio, per determinare la posizione finale di un punto sulla falangetta del dito indice, è necessario combinare le rotazioni della falangetta, della falangina, della falange e del polso, in modo da ottenere la rotazione rispetto al sistema di riferimento "mondo".
@@ -90,22 +90,22 @@
 	È possibile definire il sistema di riferimento del piano z = f con assi x e y locali paralleli agli assi x e y nello spazio.
 	Con questi presupposti si può costruire una semplice matrice K di proiezione con punti in coordinate omogenee.
 	<div style="text-align: center">
-		<img src="matrice_K.svg" style="margin: 20px;"/>
+		<img src="res/teoria/matrice_K.svg" style="margin: 20px;"/>
 	</div>
 	In una situazione più in generale la camera si trova in coordinate generiche risultato dell'applicazione di una rototraslazione dall'origine al centro della camera.
 	<div style="text-align: center">
-		<img src="rototraslazione_camera.svg" style="margin: 20px;"/>
+		<img src="res/teoria/rototraslazione_camera.svg" style="margin: 20px;"/>
 	</div>
 	È quindi possibile considerare l'applicazione della rototraslazione inversa in modo da riportare la camera nella situazione canonica per descriverne la trasformazione.
 	<div style="text-align: center">
-		<img src="rototraslazione_inversa_camera.svg" style="margin: 20px;"/>
+		<img src="res/teoria/rototraslazione_inversa_camera.svg" style="margin: 20px;"/>
 	</div>
 	La matrice A è una matrice diagonale, quindi la sua inversa R può essere calcolata come la trasposta di A ed è formata dai versori riga che formano il sistema di riferimento nel centro della camera.
 	</p>
     <p>
 		La matrice P della camera è quindi la combinazione delle matrici descritte.
 	<div style="text-align: center">
-		<img src="matrice_P.svg" style="margin: 20px;"/>
+		<img src="res/teoria/matrice_P.svg" style="margin: 20px;"/>
 	</div>
 	</p>
   </div>
