@@ -2,6 +2,8 @@
   <meta charset="utf-8">
   <title>Teoria</title>
   <link rel="stylesheet" href="res/main.css">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body id="main_body">
@@ -36,12 +38,26 @@
 	</p>
     <h3>Intersezione retta-piano</h3>
     <p>
-	Dato un vertice P del poligono, la retta r passante per i punti P ed E è definita dalle seguenti equazioni:
+	Prendiamo in considerazione il generico punto P e il punto E, le cui coordinate sono rispettivamente: <br />
+	<div style="text-align: center">
+		<img src="res/teoria/points_P_E.svg" width="200" style="margin: 10px;"/>
+		</div>
+	Consideriamo anche la retta che unisce i punto P ed E. Dobbiamo determinare tutti e i soli punti che appartengono sia alla retta che allo spazio proiettivo. Per fare ciò possiamo considerare una combinazione lineare delle coordinate dei due punti:
+	<div style="text-align: center">
+		<img src="res/teoria/p_primo.svg" height="20" style="margin: 10px;"/>
+		</div>
+	Ora, abbiamo detto che i punti P ed E non appartengono al piano proiettivo, essendo disgiunti da esso. Possiamo quindi considerare il valore di λ come sempre diverso da zero e dividere l'espressione per λ, ottenendo:
+	<div style="text-align: center">
+		<img src="res/teoria/equation_pe.svg" height="30" style="margin: 10px;"/>
+		</div>
+	Dato un vertice P del poligono, la retta r passante per i punti P ed E è quindi definita dalle seguenti equazioni:
 	<div style="text-align: center">
 		<img src="res/teoria/retta_r.svg" style="margin: 20px;"/>
 	</div>
 	Il piano π, per semplicità, è fisso e posizionato ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. Nota: il sistema di riferimento visibile, con gli assi colorati, non ha l'origine in O. L'equazione di π è quindi: 
-	<font color="blue">[DA AGGIUNGERE DUE "=" N =.... e O =....]</font>
+	<div style="text-align: center">
+		<img src="res/teoria/punti_piano.svg" style="margin: 20px;"/>
+	</div>
 	<div style="text-align: center">
 		<img src="res/teoria/equazione_piano.svg" style="margin: 20px;"/>
 	</div>
@@ -51,11 +67,47 @@
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
 	</p>
-	<font color="blue">[La matrice qui sotto è corretta, ma andrebbe confrontata con quanto si dice dopo sulle camere proiettive, io la metterei dopo quella parte, spiegando perchè questa matrice è (4,4), NON è una camera proiettiva, e ciò nonostante voi l'avete usata, credo ]</font>
+	<h4>Matrice di proiezione</h4>
 	<p>
 	In alternativa è possibile determinare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
+	Per farlo, ripartiamo dall'equazione generica del piano:
 	<div style="text-align: center">
-		<img src="res/teoria/calcolo_matrici.svg" style="margin: 20px;"/>
+		<img src="res/teoria/eq_piano.svg" height="20" style="margin: 20px;"/>
+	</div>
+	Che, scritto in termini di coordinate proiettive diventa:
+	<div style="text-align: center">
+		<img src="res/teoria/eq_piano_proiettivo.svg" height="20" style="margin: 20px;"/>
+	</div>
+	Consideriamo ora le coordinate del generico punto P + t e:
+	<div style="text-align: center">
+		<img src="res/teoria/eq_p_t.svg" height="75" style="margin: 20px;"/>
+	</div>
+	E sostituiamole nell'equazione del piano:
+	<div style="text-align: center">
+		<img src="res/teoria/eq_piano_sostituta.svg" height="20" style="margin: 20px;"/>
+	</div>
+	Da questa equazione vogliamo ricavare t:
+	<div style="text-align: center">
+		<img src="res/teoria/eq_termini_t.svg" height="20" style="margin: 20px;"/>
+	</div>
+	Come nel caso precedente, avendo scelto un punto E disgiunto dal piano, il coefficiente di t che qui chiamiamo H è sempre diverso da zero. Possiamo quindi dividere l'equazione per H:
+	<div style="text-align: center">
+		<img src="res/teoria/h.svg" height="20" style="margin: 20px;"/>
+	</div>
+	<div style="text-align: center">
+		<img src="res/teoria/t_after_h.svg" height="40" style="margin: 20px;"/>
+	</div>
+	Sostituendo il valore di t nelle coordinate generiche del punto P + t e, si ottiene:
+	<div style="text-align: center">
+		<img src="res/teoria/p_t_e_complete.svg"  style="margin: 20px;"/>
+	</div>
+	Dato il punto P(x,y,z,u) e il punto proiettato P'(x',y',z',u'), esiste una matrice M che moltiplicata per P dà come risultato P'. Questa matrice è:
+	<div style="text-align: center">
+		<img src="res/teoria/matrice_generica.svg"  style="margin: 20px;"/>
+	</div>
+	Nel nostro caso particolare, utilizzando i parametri del piano π, la matrice di proiezione diventa:
+	<div style="text-align: center">
+		<img src="res/teoria/calcolo_matrici.svg"  style="margin: 20px;"/>
 	</div>
 	Le coordinate omogenee hanno vari vantaggi, tra cui la possibilità di rappresentare traslazioni e proiezioni in modo uniforme, e la possibilità di rappresentare punti all'infinito. Inoltre, le trasformazioni affini possono essere rappresentate come prodotti di matrici in coordinate omogenee, semplificando i calcoli e permettendone la composizione.
 	</p>
