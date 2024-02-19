@@ -16,7 +16,7 @@
   <div style="margin: auto; width: 800px">
     <header>Teoria</header>
     <h2>Proiezione</h2>
-	<p>L'obbietivo dell'applicativo è proiettare due mani per formare delle ombre cinesi sullo schermo di un palco, creando quindi la proiezione degli oggetti 3D sul piano utilizzando la geometria proiettiva.
+	<p>Lo scopo dell'applicativo è proiettare due mani per formare delle ombre cinesi sullo schermo di un palco, creando quindi la proiezione degli oggetti 3D sul piano utilizzando la geometria proiettiva.
 		Il modello utilizzato è composto da:
 	<ul>
 		<li>Il centro di proiezione, che chiamiamo punto E, che funge da punto di vista</li>
@@ -24,39 +24,40 @@
 		<li>L'oggetto da proiettare, disgiunto dal punto E e dal piano π</li>
 	</ul>
 	Prendiamo in considerazione la retta passante per il punto P, appartenente all'oggetto, e il punto E. Tale retta interseca il piano in un punto P', che rappresenta la proiezione di P sullo schermo stesso. <br />
-	Tutti i punti nello spazio hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, poiché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
-	Più comunemente, una proiezione è rappresentata con il piano di proiezione posizionato tra l'oggetto e il punto E. In questo caso particolare, l'oggetto da proiettare si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
+	Tutti i punti nello spazio, eccetto E, hanno un unico corrispondente che giace sullo schermo, ma la rappresentazione non è biunivoca, poiché possono esserci punti differenti nello spazio 3D che sono rappresentati sul piano dallo stesso punto.</br>
+	Più comunemente, una proiezione è rappresentata con il piano di proiezione posizionato tra l'oggetto e il punto E. Nel nostro caso particolare, l'oggetto da proiettare si trova tra il punto E e il piano, ma il meccanismo rimane il medesimo.
 	<div style="text-align: center">
 		<img src="res/teoria/proiezione_p.png" height="200" style="margin: 20px;"/>
 		</div>
 
 	L'ombra è il risultato della proiezione della mano a partire dal punto E, che rappresenta il punto di vista della proiezione. Il piano π, invece, corrisponde allo schermo del palco, cioè la parete su cui verrà proiettata l'ombra. La mano, oggetto proiettato, è disgiunta da entrambi questi elementi e non ha punti in comune con essi.
-	La proiezione si ottiene individuando i punti di intersezione tra il piano di proiezione e le rette passanti per il punto E e i vertici dell'oggetto.<br />
-	 In particolare, trattandosi di un oggetto complesso, ad ogni faccia facciamo corrispondere un triangolo proiettato, i cui vertici vengono utilizzati per creare la mesh dell'ombra completa.
+	La proiezione si ottiene individuando i punti di intersezione tra il piano di proiezione e le rette passanti per il punto E e per i vertici dei triangoli T che definiscono la superficie dell'oggetto da proiettare.<br />
+	 In particolare, trattandosi di un oggetto complesso, ad ogni T facciamo corrispondere un triangolo proiettato, i cui vertici vengono utilizzati per creare la mesh dell'ombra completa.
 	</p>
     <h3>Intersezione retta-piano</h3>
     <p>
-	Dato un vertice P del poligono, la retta r passante per i punti P ed E è definita dalla seguente equazione
+	Dato un vertice P del poligono, la retta r passante per i punti P ed E è definita dalle seguenti equazioni:
 	<div style="text-align: center">
 		<img src="res/teoria/retta_r.svg" style="margin: 20px;"/>
 	</div>
-	Il piano π, per semplicità, è fisso e posizionato ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. La sua equazione è quindi
+	Il piano π, per semplicità, è fisso e posizionato ortogonalmente al vettore (-1,0,0) ed è passante per l'origine degli assi. Nota: il sistema di riferimento visibile, con gli assi colorati, non ha l'origine in O. L'equazione di π è quindi: 
+	<font color="blue">[DA AGGIUNGERE DUE "=" N =.... e O =....]</font>
 	<div style="text-align: center">
 		<img src="res/teoria/equazione_piano.svg" style="margin: 20px;"/>
 	</div>
-	Per calcolare il punto di intersezione tra la retta r e il piano π è sufficiente calcolare il parametro t sostituendo i parametri della retta nell'equazione del piano
+	Per determinare il punto di intersezione tra la retta r e il piano π è sufficiente calcolare il parametro t sostituendo le equazioni parametriche della retta nell'equazione cartesiana del piano:
 	<div style="text-align: center">
 		<img src="res/teoria/parametro_t.svg" style="margin: 20px;"/>
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
 	</p>
+	<font color="blue">[La matrice qui sotto è corretta, ma andrebbe confrontata con quanto si dice dopo sulle camere proiettive, io la metterei dopo quella parte, spiegando perchè questa matrice è (4,4), NON è una camera proiettiva, e ciò nonostante voi l'avete usata, credo ]</font>
 	<p>
-	In alternativa è possibile calcolare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
+	In alternativa è possibile determinare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
 	<div style="text-align: center">
 		<img src="res/teoria/calcolo_matrici.svg" style="margin: 20px;"/>
 	</div>
-	Le coordinate omogenee hanno vari vantaggi, tra cui la possibilità di rappresentare traslazioni e proiezioni in modo uniforme, e la possibilità di rappresentare punti all'infinito. Inoltre, le coordinate omogenee sono invarianti rispetto alle trasformazioni affini, il che significa che le coordinate omogenee di un punto trasformato sono le stesse del punto originale trasformate dalla stessa trasformazione.
-	Ripetendo il procedimento per ogni vertice di ogni triangolo del modello si ottengono i punti della proiezione, cioè dell'ombra cercata.
+	Le coordinate omogenee hanno vari vantaggi, tra cui la possibilità di rappresentare traslazioni e proiezioni in modo uniforme, e la possibilità di rappresentare punti all'infinito. Inoltre, le trasformazioni affini possono essere rappresentate come prodotti di matrici in coordinate omogenee, semplificando i calcoli e permettendone la composizione.
 	</p>
     <h2>Trasformazioni geometriche</h2>
     <p>
@@ -73,26 +74,33 @@
 	<div style="text-align: center">
 		<img src="res/teoria/traslazione.svg" style="margin: 20px;"/>
 	</div>
-	La rotazione è definita in un sistema di riferimento locale all'oggetto, in modo da mantenere la gerarchia della struttura della mano. Per ogni asse attorno al quale si deve ruotare si definisce un angolo di rotazione che viene applicato dalla matrice di rotazione che ruota l'oggetto su ogni asse indipendentemente.
+	La rotazione è definita in un sistema di riferimento locale all'oggetto, in modo da mantenere la gerarchia della struttura della mano. Per ogni asse attorno al quale si deve ruotare si definisce un angolo di rotazione che viene applicato dalla matrice di rotazione che ruota l'oggetto su ogni asse indipendentemente.<br />
+	Le tre matrici qui di seguito rappresentano rotazioni rispetto agli assi X, Y e Z di angoli, rispettivamente alfa, beta, gamma.
 	<div style="text-align: center">
 		<img src="res/teoria/rotazione.svg" style="margin: 20px;"/>
 	</div>
-	La combinazione sequenziale di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. <br />
-	Ad esempio, per determinare la posizione finale di un punto sulla falangetta del dito indice, è necessario combinare le rotazioni della falangetta, della falangina, della falange e del polso, in modo da ottenere la rotazione rispetto al sistema di riferimento "mondo".
+	La composizione di trasformazioni affini offre una flessibilità fondamentale per ottenere diverse rappresentazioni di ombre, consentendo variazioni nelle posizioni e orientamenti delle mani. <br />
+	Ad esempio, per determinare la posizione finale di un punto F sulla falangetta del dito indice, è necessario combinare le seguenti rotazioni:
+	<lu>
+		<li>La rotazione del punto F rispetto all'origine centrata nel punto G posto sulla falangina</li>
+		<li>La rotazione della falangina rispetto all'origine centrata nel punto H poso sulla falange</li>
+		<li>La rotazione della falange rispetto all'origine centrata nel punto I posto sul polso</li>
+	</lu>
+	In questo modo ottengo la posizione del punto F della falangetta rispetto al sistema di riferimento dell'engine utilizzato per sviluppare l'applicativo.
 	</p>
 	<h3>Camera Proiettiva</h3>
     <p>
-	Il risultato è visualizzato dal punto di vista di una camera fissa presente nello spazio. La scena costruita deve, quindi, essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo dove viene visualizzata.
-	Questo meccanismo si ottiene tramite l'utilizzo di una camera proiettiva definita da una matrice P.
+	L'applicativo utilizza una camera fissa per visualizzare la proiezione. La scena costruita deve, quindi, essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo dove viene visualizzata.
+	Questo meccanismo si ottiene tramite l'utilizzo di una camera proiettiva definita da una matrice N.
 	</p>
     <p>
-	Per costruire la matrice sopra citata è possibile partire da una semplice proiezione con la camera in posizione canonica, cioè centrata nell'origine, con un piano di proiezione di equazione z = f; f è la distanza focale mentre z corrisponde all'asse focale.
-	È possibile definire il sistema di riferimento del piano z = f con assi x e y locali paralleli agli assi x e y nello spazio.
-	Con questi presupposti si può costruire una semplice matrice K di proiezione con punti in coordinate omogenee.
+	Per costruire la matrice sopra citata è possibile partire da una semplice proiezione con la camera in posizione canonica, cioè centrata nell'origine, con un piano di proiezione di equazione Z = f; f è la distanza focale mentre l'asse Z corrisponde all'asse focale.
+	È possibile definire un sistema di riferimento sul piano Z = f con assi x e y locali paralleli agli assi X e Y nello spazio.
+	Con questi presupposti si può costruire una semplice matrice K di proiezione, chiamando K la sottomatrice data dalle prime tre colonne, con punti in coordinate omogenee.
 	<div style="text-align: center">
 		<img src="res/teoria/matrice_K.svg" style="margin: 20px;"/>
 	</div>
-	In una situazione più in generale la camera si trova in coordinate generiche risultato dell'applicazione di una rototraslazione dall'origine al centro della camera.
+	In una situazione più generale la camera si trova in un posizione generica, risultato dell'applicazione di una rototraslazione dall'origine al centro della camera.
 	<div style="text-align: center">
 		<img src="res/teoria/rototraslazione_camera.svg" style="margin: 20px;"/>
 	</div>
@@ -100,10 +108,10 @@
 	<div style="text-align: center">
 		<img src="res/teoria/rototraslazione_inversa_camera.svg" style="margin: 20px;"/>
 	</div>
-	La matrice A è una matrice diagonale, quindi la sua inversa R può essere calcolata come la trasposta di A ed è formata dai versori riga che formano il sistema di riferimento nel centro della camera.
+	La matrice A è una matrice ortogonale, quindi la sua inversa R può essere calcolata come la trasposta di A ed è formata dai versori riga che definiscono il sistema di riferimento nel centro della camera.
 	</p>
     <p>
-		La matrice P della camera è quindi la combinazione delle matrici descritte.
+		La matrice N della camera è quindi la combinazione delle matrici descritte.
 	<div style="text-align: center">
 		<img src="res/teoria/matrice_P.svg" style="margin: 20px;"/>
 	</div>
