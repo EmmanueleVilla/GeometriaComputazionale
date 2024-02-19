@@ -11,11 +11,17 @@ public class LightController : MonoBehaviour
     private float _positionY;
     private float _positionZ;
 
+    private GameObject rightHand;
+    private GameObject leftHand;
+
     private void Awake()
     {
         positionXSlider.value = transform.position.x;
         positionYSlider.value = transform.position.y;
         positionZSlider.value = transform.position.z;
+
+        rightHand = GameObject.FindGameObjectWithTag("HandRight");
+        leftHand = GameObject.FindGameObjectWithTag("HandLeft");
     }
 
     private bool _initialized = false;
@@ -38,6 +44,8 @@ public class LightController : MonoBehaviour
         }
 
         transform.position = new Vector3(_positionX, _positionY, _positionZ);
+
+        positionXSlider.maxValue = Mathf.Min(rightHand.transform.position.x, leftHand.transform.position.x) - 3;
     }
 
     private void PositionXValueChangeCheck()

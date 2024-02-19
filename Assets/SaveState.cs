@@ -58,12 +58,12 @@ public class SaveState : MonoBehaviour
 
     private HandData GetHandData(string tag)
     {
-        var rightHand = GameObject.FindGameObjectWithTag(tag);
-        var position = rightHand.transform.position;
-        var rotation = rightHand.transform.localEulerAngles;
+        var hand = GameObject.FindGameObjectWithTag(tag);
+        var position = hand.transform.position;
+        var rotation = hand.transform.localEulerAngles;
 
         var fingerData = new List<FingerData>();
-        var fingerControllers = rightHand.GetComponentsInChildren<FingerController>();
+        var fingerControllers = hand.GetComponentsInChildren<FingerController>();
         foreach (var fingerController in fingerControllers)
         {
             var childName = fingerController.name;
@@ -71,7 +71,7 @@ public class SaveState : MonoBehaviour
             fingerData.Add(new FingerData(childName, childRotation));
         }
 
-        var thumbControllers = rightHand.GetComponentsInChildren<ThumbController>();
+        var thumbControllers = hand.GetComponentsInChildren<ThumbController>();
         foreach (var thumbController in thumbControllers)
         {
             var childName = thumbController.name;
