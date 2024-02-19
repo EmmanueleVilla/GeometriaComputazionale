@@ -78,15 +78,15 @@
 	<div style="text-align: center">
 		<img src="res/teoria/eq_piano_proiettivo.svg" height="20" style="margin: 20px;"/>
 	</div>
-	Consideriamo ora le coordinate del generico punto P + t e:
+	Consideriamo ora la retta  in forma parametrica passante per il punto generico P e il punto E:
 	<div style="text-align: center">
-		<img src="res/teoria/eq_p_t.svg" height="75" style="margin: 20px;"/>
+		<img src="res/teoria/eq_p_t.svg" style="margin: 20px;"/>
 	</div>
-	E sostituiamole nell'equazione del piano:
+	E calcoliamo l'intersezione con il piano:
 	<div style="text-align: center">
 		<img src="res/teoria/eq_piano_sostituta.svg" height="20" style="margin: 20px;"/>
 	</div>
-	Da questa equazione vogliamo ricavare t:
+	Da questa equazione vogliamo ricavare i valori di t che annullano l'equazione:
 	<div style="text-align: center">
 		<img src="res/teoria/eq_termini_t.svg" height="20" style="margin: 20px;"/>
 	</div>
@@ -97,7 +97,7 @@
 	<div style="text-align: center">
 		<img src="res/teoria/t_after_h.svg" height="40" style="margin: 20px;"/>
 	</div>
-	Sostituendo il valore di t nelle coordinate generiche del punto P + t e, si ottiene:
+	Sostituendo il valore di t trovato nella retta, si ottiene il punto di intersezione P':
 	<div style="text-align: center">
 		<img src="res/teoria/p_t_e_complete.svg"  style="margin: 20px;"/>
 	</div>
@@ -140,9 +140,9 @@
 	</lu>
 	In questo modo ottengo la posizione del punto F della falangetta rispetto al sistema di riferimento dell'engine utilizzato per sviluppare l'applicativo.
 	</p>
-	<h3>Camera Proiettiva</h3>
+	<h2>Camera Proiettiva</h2>
     <p>
-	L'applicativo utilizza una camera fissa per visualizzare la proiezione. La scena costruita deve, quindi, essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo dove viene visualizzata.
+	L'applicativo utilizza una camera fissa per visualizzare il risultato. La scena costruita deve, quindi, essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo del PC dove viene visualizzata.</br>
 	Questo meccanismo si ottiene tramite l'utilizzo di una camera proiettiva definita da una matrice N.
 	</p>
     <p>
