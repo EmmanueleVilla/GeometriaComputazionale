@@ -37,20 +37,12 @@
 	 In particolare, trattandosi di un oggetto complesso, ad ogni T facciamo corrispondere un triangolo proiettato, i cui vertici vengono utilizzati per creare la mesh dell'ombra completa.
 	</p>
     <h3>Intersezione retta-piano</h3>
-    <p>
-	Prendiamo in considerazione il generico punto P e il punto E, le cui coordinate sono rispettivamente: <br />
+	Prendiamo in considerazione il generico punto P e il punto E, le cui coordinate sono rispettivamente:
 	<div style="text-align: center">
 		<img src="res/teoria/points_P_E.svg" width="200" style="margin: 10px;"/>
-		</div>
-	Consideriamo anche la retta che unisce i punto P ed E. Dobbiamo determinare tutti e i soli punti che appartengono sia alla retta che allo spazio proiettivo. Per fare ciò possiamo considerare una combinazione lineare delle coordinate dei due punti:
-	<div style="text-align: center">
-		<img src="res/teoria/p_primo.svg" height="20" style="margin: 10px;"/>
-		</div>
-	Ora, abbiamo detto che i punti P ed E non appartengono al piano proiettivo, essendo disgiunti da esso. Possiamo quindi considerare il valore di λ come sempre diverso da zero e dividere l'espressione per λ, ottenendo:
-	<div style="text-align: center">
-		<img src="res/teoria/equation_pe.svg" height="30" style="margin: 10px;"/>
-		</div>
-	Dato un vertice P del poligono, la retta r passante per i punti P ed E è quindi definita dalle seguenti equazioni:
+	</div>
+	Consideriamo anche la retta che unisce i punto P ed E. Dobbiamo determinare tutti e i soli punti che appartengono sia alla retta che allo spazio proiettivo. Per fare ciò possiamo considerare una combinazione lineare delle coordinate dei due punti.
+	Dato un vertice P del poligono, la retta passante per i punti P ed E è quindi definita dalle seguenti equazioni:
 	<div style="text-align: center">
 		<img src="res/teoria/retta_r.svg" style="margin: 20px;"/>
 	</div>
@@ -66,7 +58,6 @@
 		<img src="res/teoria/parametro_t.svg" style="margin: 20px;"/>
 	</div>
 	Trovato t è possibile sostituirlo nell'equazione della retta r per ottenere le coordinate del punto di intersezione.
-	</p>
 	<h4>Matrice di proiezione</h4>
 	<p>
 	In alternativa è possibile determinare la matrice M di proiezione e procedere tramite calcolo matriciale con coordinate omogenee, ottendendo così le coordinate dell'intersezione a meno di un fattore di proporzionalità.
@@ -80,9 +71,13 @@
 	</div>
 	Consideriamo ora la retta  in forma parametrica passante per il punto generico P e il punto E:
 	<div style="text-align: center">
+		<img src="res/teoria/p_primo.svg" height="20" style="margin: 10px;"/>
+	</div>
+	Ora, abbiamo detto che i punti P ed E non appartengono al piano proiettivo, essendo disgiunti da esso. Possiamo quindi considerare il valore di λ come sempre diverso da zero e dividere l'espressione per λ, ottenendo:
+	<div style="text-align: center">
 		<img src="res/teoria/eq_p_t.svg" style="margin: 20px;"/>
 	</div>
-	E calcoliamo l'intersezione con il piano:
+	Calcoliamo l'intersezione con il piano:
 	<div style="text-align: center">
 		<img src="res/teoria/eq_piano_sostituta.svg" height="20" style="margin: 20px;"/>
 	</div>
@@ -142,11 +137,11 @@
 	</p>
 	<h2>Camera Proiettiva</h2>
     <p>
-	L'applicativo utilizza una camera fissa per visualizzare il risultato. La scena costruita deve, quindi, essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo del PC dove viene visualizzata.</br>
-	Questo meccanismo si ottiene tramite l'utilizzo di una camera proiettiva definita da una matrice N.
+	L'applicativo utilizza una camera fissa per visualizzare il risultato. La scena costruita deve essere proiettata da uno spazio 3D a un piano di proiezione che corrisponde allo schermo del PC dove viene visualizzata.</br>
+	Questo meccanismo è messo in atto dall'engine utilizzato e si ottiene tramite l'utilizzo di una camera proiettiva definita da una matrice N popolata da specifici parametri.
 	</p>
     <p>
-	Per costruire la matrice sopra citata è possibile partire da una semplice proiezione con la camera in posizione canonica, cioè centrata nell'origine, con un piano di proiezione di equazione Z = f; f è la distanza focale mentre l'asse Z corrisponde all'asse focale.
+	Per costruire la matrice sopra citata l'engine parte da una semplice proiezione con la camera in posizione canonica, cioè centrata nell'origine, con un piano di proiezione di equazione Z = f dove f è la distanza focale; l'asse Z corrisponde all'asse focale.
 	È possibile definire un sistema di riferimento sul piano Z = f con assi x e y locali paralleli agli assi X e Y nello spazio.
 	Con questi presupposti si può costruire una semplice matrice K di proiezione, chiamando K la sottomatrice data dalle prime tre colonne, con punti in coordinate omogenee.
 	<div style="text-align: center">
@@ -160,7 +155,7 @@
 	<div style="text-align: center">
 		<img src="res/teoria/rototraslazione_inversa_camera.svg" style="margin: 20px;"/>
 	</div>
-	La matrice A è una matrice ortogonale, quindi la sua inversa R può essere calcolata come la trasposta di A ed è formata dai versori riga che definiscono il sistema di riferimento nel centro della camera.
+	La matrice A è una matrice ortogonale, quindi la sua inversa R può essere calcolata come la trasposta di A, ed è formata dai versori riga che definiscono il sistema di riferimento nel centro della camera.
 	</p>
     <p>
 		La matrice N della camera è quindi la combinazione delle matrici descritte.
