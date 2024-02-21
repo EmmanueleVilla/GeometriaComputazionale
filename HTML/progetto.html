@@ -6,17 +6,8 @@
     <title>Unity WebGL Player | GeomCompURP</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="stylesheet" href="res/main.css">
   </head>
   <body>
-  <div id="topnav">
-    <span id="topnav_span">
-      <a class="topnav_el" href="index.html">Home</a>
-      <a class="topnav_el" href="teoria.html">Teoria</a>
-      <a class="topnav_el" href="manuale.html">Manuale</a>
-      <a class="topnav_el" href="#">Progetto</a>
-    </span>
-  </div>
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
@@ -68,9 +59,9 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/webgl.loader.js";
       var config = {
-        dataUrl: buildUrl + "/webgl.data.br",
-        frameworkUrl: buildUrl + "/webgl.framework.js.br",
-        codeUrl: buildUrl + "/webgl.wasm.br",
+        dataUrl: buildUrl + "/webgl.data",
+        frameworkUrl: buildUrl + "/webgl.framework.js",
+        codeUrl: buildUrl + "/webgl.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "GeomCompURP",
