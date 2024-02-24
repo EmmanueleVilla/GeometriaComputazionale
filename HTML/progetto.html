@@ -1,26 +1,33 @@
-<html><head>
-    <meta charset="utf-8">
-    <title>Teoria</title>
-    <link rel="stylesheet" href="res/main.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  </head>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Teoria</title>
+		<link rel="stylesheet" href="res/main.css">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+		<script>
+		function resizeIframe(obj) {
+			obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+		}
+		</script>
+	</head>
   
-  <body id="main_body">
-    <div id="topnav">
-      <span id="topnav_span">
-        <a class="topnav_el" href="index.html">Home</a>
-        <a class="topnav_el" href="teoria.html">Teoria</a>
-        <a class="topnav_el" href="manuale.html">Manuale</a>
-        <a class="topnav_el" href="#">Progetto</a>
-      </span>
-    </div>
-    <div style="margin: auto; width: 800px">
-        <div class="row-container">
-            <div class="first-row">
-              <header>Progetto</header>
-            </div>
-            <iframe src="progetto_internal.html" class="second-row"></iframe>
-          </div>    
-        </div>
-  </body></html>
+	<body id="main_body">
+	<div id="topnav">
+	  <span id="topnav_span">
+		<a class="topnav_el" href="index.html">Home</a>
+		<a class="topnav_el" href="teoria.html">Teoria</a>
+		<a class="topnav_el" href="manuale.html">Manuale</a>
+		<a class="topnav_el" href="#">Progetto</a>
+	  </span>
+	</div>
+	<div style="margin-bottom: 20px;">
+		<div class="row-container">
+			<div class="first-row">
+			  <header>Progetto</header>
+			</div>
+			<iframe src="progetto_internal.html" scrolling="no" onload="resizeIframe(this)" class="second-row"></iframe>
+		  </div>    
+		</div>
+	</body>
+</html>
